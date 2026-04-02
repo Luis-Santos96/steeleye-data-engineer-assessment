@@ -21,4 +21,3 @@ class Pipeline:
         """Execute the full ETL pipeline."""
         logger.info("Starting ESMA FIRDS ETL pipeline")
         logger.info("Pipeline finished successfully")
-        
