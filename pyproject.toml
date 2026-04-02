@@ -1,0 +1,51 @@
+[project]
+name = "steeleye"
+version = "0.1.0"
+description = "SteelEye Data Engineer Technical Assessment - ESMA FIRDS ETL Pipeline"
+readme = "README.md"
+authors = [
+    { name = "Luis Ricardo", email = "luisricardo--96@hotmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pandas",
+    "lxml",
+    "requests",
+    "boto3",
+    "fsspec",
+    "s3fs",
+    "adlfs",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-cov",
+    "moto[s3]",
+    "responses",
+    "ruff",
+    "mypy",
+    "pre-commit",
+    "pandas-stubs",
+    "types-requests",
+    "boto3-stubs",
+    "types-lxml",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.3,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
