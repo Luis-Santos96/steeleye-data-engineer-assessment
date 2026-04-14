@@ -78,9 +78,7 @@ class DataStorage:
             path.parent.mkdir(parents=True, exist_ok=True)
             df.to_csv(path, index=False)
         except Exception as exc:
-            raise StorageError(
-                f"Failed to save CSV to {output_path}: {exc}"
-            ) from exc
+            raise StorageError(f"Failed to save CSV to {output_path}: {exc}") from exc
 
         logger.info("CSV saved locally to %s", output_path)
         return output_path

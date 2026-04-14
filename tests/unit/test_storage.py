@@ -27,9 +27,7 @@ def sample_df() -> pd.DataFrame:
 class TestSaveLocal:
     """Tests for saving CSV to local filesystem."""
 
-    def test_creates_csv_file(
-        self, sample_df: pd.DataFrame, tmp_path: Path
-    ) -> None:
+    def test_creates_csv_file(self, sample_df: pd.DataFrame, tmp_path: Path) -> None:
         """Should create a CSV file at the given path."""
         output_path = str(tmp_path / "output" / "test.csv")
         storage = DataStorage(storage_path="s3://unused")
@@ -38,9 +36,7 @@ class TestSaveLocal:
 
         assert os.path.exists(result)
 
-    def test_csv_content_matches(
-        self, sample_df: pd.DataFrame, tmp_path: Path
-    ) -> None:
+    def test_csv_content_matches(self, sample_df: pd.DataFrame, tmp_path: Path) -> None:
         """Should write correct CSV content."""
         output_path = str(tmp_path / "test.csv")
         storage = DataStorage(storage_path="s3://unused")
@@ -83,9 +79,7 @@ class TestSaveCsvToS3:
         assert "Alpha" in content
 
     @mock_aws
-    def test_csv_has_correct_columns(
-        self, sample_df: pd.DataFrame
-    ) -> None:
+    def test_csv_has_correct_columns(self, sample_df: pd.DataFrame) -> None:
         """Should write CSV with correct headers."""
         conn = boto3.client("s3", region_name="us-east-1")
         conn.create_bucket(Bucket="test-bucket")

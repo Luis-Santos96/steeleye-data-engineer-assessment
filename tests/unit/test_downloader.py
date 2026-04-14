@@ -68,9 +68,7 @@ class TestFetchRegistryXml:
         assert result == SAMPLE_REGISTRY_XML
 
     @responses.activate
-    def test_http_error_raises_download_error(
-        self, downloader: ESMADownloader
-    ) -> None:
+    def test_http_error_raises_download_error(self, downloader: ESMADownloader) -> None:
         """Should raise DownloadError on HTTP failure."""
         responses.add(
             responses.GET,
@@ -93,16 +91,12 @@ class TestParseDltinsLinks:
         assert links[0] == "https://example.com/first.zip"
         assert links[1] == "https://example.com/second.zip"
 
-    def test_no_dltins_raises_parsing_error(
-        self, downloader: ESMADownloader
-    ) -> None:
+    def test_no_dltins_raises_parsing_error(self, downloader: ESMADownloader) -> None:
         """Should raise ParsingError when no DLTINS links exist."""
         with pytest.raises(ParsingError, match="No DLTINS download links"):
             downloader.parse_dltins_links(SAMPLE_REGISTRY_NO_DLTINS)
 
-    def test_invalid_xml_raises_parsing_error(
-        self, downloader: ESMADownloader
-    ) -> None:
+    def test_invalid_xml_raises_parsing_error(self, downloader: ESMADownloader) -> None:
         """Should raise ParsingError on malformed XML."""
         with pytest.raises(ParsingError, match="Failed to parse registry XML"):
             downloader.parse_dltins_links(b"<invalid>xml")
@@ -127,9 +121,7 @@ class TestDownloadZip:
         assert result == zip_bytes
 
     @responses.activate
-    def test_http_error_raises_download_error(
-        self, downloader: ESMADownloader
-    ) -> None:
+    def test_http_error_raises_download_error(self, downloader: ESMADownloader) -> None:
         """Should raise DownloadError on HTTP failure."""
         responses.add(
             responses.GET,
@@ -153,9 +145,7 @@ class TestExtractXmlFromZip:
 
         assert result == xml_content
 
-    def test_no_xml_raises_parsing_error(
-        self, downloader: ESMADownloader
-    ) -> None:
+    def test_no_xml_raises_parsing_error(self, downloader: ESMADownloader) -> None:
         """Should raise ParsingError when ZIP contains no XML files."""
         buffer = BytesIO()
         with zipfile.ZipFile(buffer, "w") as zf:
@@ -165,9 +155,7 @@ class TestExtractXmlFromZip:
         with pytest.raises(ParsingError, match="No XML files found"):
             downloader.extract_xml_from_zip(zip_bytes)
 
-    def test_invalid_zip_raises_parsing_error(
-        self, downloader: ESMADownloader
-    ) -> None:
+    def test_invalid_zip_raises_parsing_error(self, downloader: ESMADownloader) -> None:
         """Should raise ParsingError on invalid ZIP data."""
         with pytest.raises(ParsingError, match="Invalid ZIP archive"):
             downloader.extract_xml_from_zip(b"not a zip file")

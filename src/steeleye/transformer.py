@@ -26,9 +26,7 @@ class DataTransformer:
 
         full_nm = df["FinInstrmGnlAttrbts.FullNm"].fillna("")
         df["a_count"] = full_nm.str.count("a")
-        df["contains_a"] = df["a_count"].apply(
-            lambda x: "YES" if x > 0 else "NO"
-        )
+        df["contains_a"] = df["a_count"].apply(lambda x: "YES" if x > 0 else "NO")
 
         logger.info("Transformations applied successfully")
         return df

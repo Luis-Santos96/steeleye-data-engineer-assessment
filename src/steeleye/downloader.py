@@ -42,7 +42,7 @@ class ESMADownloader:
 
         logger.info(
             "Registry XML fetched successfully (%d bytes)", len(response.content)
-            )
+        )
         return response.content
 
     def parse_dltins_links(self, xml_content: bytes) -> list[str]:
@@ -98,7 +98,7 @@ class ESMADownloader:
 
         logger.info(
             "ZIP file downloaded successfully (%d bytes)", len(response.content)
-            )
+        )
         return response.content
 
     def extract_xml_from_zip(self, zip_content: bytes) -> bytes:

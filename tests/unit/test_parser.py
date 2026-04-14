@@ -73,9 +73,7 @@ class TestParse:
         assert df.iloc[0]["FinInstrmGnlAttrbts.NtnlCcy"] == "EUR"
         assert df.iloc[0]["Issr"] == "ISSUER001"
 
-    def test_parses_different_record_types(
-        self, parser: DLTINSParser
-    ) -> None:
+    def test_parses_different_record_types(self, parser: DLTINSParser) -> None:
         """Should handle both TermntdRcrd and NewRcrd types."""
         df = parser.parse(SAMPLE_DLTINS_XML)
 
@@ -97,16 +95,12 @@ class TestParse:
         for col in expected_columns:
             assert col in df.columns
 
-    def test_no_records_raises_parsing_error(
-        self, parser: DLTINSParser
-    ) -> None:
+    def test_no_records_raises_parsing_error(self, parser: DLTINSParser) -> None:
         """Should raise ParsingError when no records are found."""
         with pytest.raises(ParsingError, match="No instrument records"):
             parser.parse(SAMPLE_NO_RECORDS_XML)
 
-    def test_invalid_xml_raises_parsing_error(
-        self, parser: DLTINSParser
-    ) -> None:
+    def test_invalid_xml_raises_parsing_error(self, parser: DLTINSParser) -> None:
         """Should raise ParsingError on malformed XML."""
         with pytest.raises(ParsingError, match="Failed to parse DLTINS XML"):
             parser.parse(b"<broken>xml")

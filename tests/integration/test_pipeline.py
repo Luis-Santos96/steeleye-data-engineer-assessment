@@ -125,8 +125,6 @@ class TestPipelineEndToEnd:
         assert xyz_row.iloc[0]["contains_a"] == "NO"
 
         # Verify S3 upload
-        s3_obj = conn.get_object(
-            Bucket="test-bucket", Key="output.csv"
-        )
+        s3_obj = conn.get_object(Bucket="test-bucket", Key="output.csv")
         s3_content = s3_obj["Body"].read().decode("utf-8")
         assert "ISIN001" in s3_content

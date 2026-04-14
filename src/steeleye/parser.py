@@ -36,9 +36,7 @@ class DLTINSParser:
     from ESMA FIRDS DLTINS delta report XML files.
     """
 
-    def _find_text(
-        self, element: etree._Element, tag: str, ns: str
-    ) -> str:
+    def _find_text(self, element: etree._Element, tag: str, ns: str) -> str:
         """Find text content of a child element.
 
         Args:
@@ -54,9 +52,7 @@ class DLTINSParser:
             return node.text
         return ""
 
-    def _parse_record(
-        self, record: etree._Element, ns: str
-    ) -> dict[str, str]:
+    def _parse_record(self, record: etree._Element, ns: str) -> dict[str, str]:
         """Parse a single instrument record into a flat dictionary.
 
         Args:
@@ -66,9 +62,7 @@ class DLTINSParser:
         Returns:
             Dictionary with column names as keys and text values.
         """
-        attrs = record.find(
-            f"{{{NAMESPACES[ns]}}}FinInstrmGnlAttrbts"
-        )
+        attrs = record.find(f"{{{NAMESPACES[ns]}}}FinInstrmGnlAttrbts")
 
         row: dict[str, str] = {}
         if attrs is not None:
@@ -97,9 +91,7 @@ class DLTINSParser:
         try:
             root = etree.fromstring(xml_content)
         except etree.XMLSyntaxError as exc:
-            raise ParsingError(
-                f"Failed to parse DLTINS XML: {exc}"
-            ) from exc
+            raise ParsingError(f"Failed to parse DLTINS XML: {exc}") from exc
 
         ns = "doc"
         records: list[dict[str, str]] = []
